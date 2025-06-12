@@ -9,10 +9,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     defaults:
       run:
-        working-directory: backend  # Muy importante
+        working-directory: backend # Esto asegura que esté dentro de backend
 
     steps:
       - name: 📥 Clonar repositorio
@@ -21,7 +20,7 @@ jobs:
       - name: 🟢 Usar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: 📦 Instalar dependencias
         run: npm install
