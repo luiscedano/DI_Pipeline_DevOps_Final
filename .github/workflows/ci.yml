@@ -10,6 +10,10 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: backend  # Muy importante
+
     steps:
       - name: 📥 Clonar repositorio
         uses: actions/checkout@v3
@@ -17,11 +21,10 @@ jobs:
       - name: 🟢 Usar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: 📦 Instalar dependencias
-        run: npm install --prefix backend
+        run: npm install
 
       - name: 🧪 Ejecutar pruebas
-        run: npx jest
-        working-directory: backend 
+        run: npx jest 
