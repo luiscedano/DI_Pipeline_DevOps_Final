@@ -1,4 +1,4 @@
-name: Pipeline DevOps - CI/CD
+name: Pipeline DevOps – CI/CD
 
 on:
   push:
@@ -17,14 +17,11 @@ jobs:
       - name: 🟢 Usar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
-      - name: 📦 Instalar dependencias backend
-        run: |
-          cd backend
-          npm install
+      - name: 📦 Instalar dependencias
+        run: npm install --prefix backend
 
-      - name: 🚦 Verificar servidor backend (lint/test futuro)
-        run: |
-          cd backend
-          echo "Servidor verificado para pipeline inicial" 
+      - name: 🧪 Ejecutar pruebas
+        run: npx jest
+        working-directory: backend 
