@@ -20,9 +20,9 @@ jobs:
           node-version: '20'
 
       - name: 📦 Instalar dependencias en backend
-        working-directory: backend
         run: npm install
-
-      - name: 🧪 Ejecutar pruebas Jest
         working-directory: backend
-        run: npx jest 
+
+      - name: 🧪 Ejecutar pruebas con Jest (usando config)
+        run: npx jest --config=jest.config.js
+        working-directory: backend 
