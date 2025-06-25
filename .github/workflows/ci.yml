@@ -2,27 +2,31 @@ name: Pipeline DevOps – CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Clonar repositorio
-        uses: actions/checkout@v3
+      - name: Checkout del repositorio
+        uses: actions/checkout@v2
 
-      - name: 🟢 Usar Node.js
+      - name: Instalar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18'
 
-      - name: 📦 Instalar dependencias en backend
+      - name: Ir a la carpeta backend
+        working-directory: ./backend
+        run: echo "Nos movemos al backend"
+
+      - name: Instalar dependencias
+        working-directory: ./backend
         run: npm install
-        working-directory: backend
 
-      - name: 🧪 Ejecutar pruebas con Jest (usando config)
-        run: npx jest --config=jest.config.js
-        working-directory: backend 
+      - name: Ejecutar tests
+        working-directory: ./backend
+        run: npm test 
