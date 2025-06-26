@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Backend simple para proyecto DevOps Final",
   "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "jest --testMatch \"**/tests/unit/**/*.js\""
-  },
+"scripts": {
+  "start": "node app.js",
+  "dev": "nodemon app.js",
+  "test": "jest --testMatch \"**/tests/**/*.js\""
+},  
   "author": "Luis Emilio Cedano",
   "license": "ISC",
   "dependencies": {

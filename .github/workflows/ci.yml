@@ -1,32 +1,41 @@
-name: Pipeline DevOps – CI/CD
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
 
 jobs:
-  build-and-test:
+  build-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+
+    - name: Install deps
+      run: npm ci
+
+    - name: Lint (ejemplo)
+      run: npx eslint . || true 
+
+    - name: Run tests
+      run: npm test
+
+  docker-build:
+    needs: build-test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v2
-
-      - name: Instalar Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Ir a la carpeta backend
-        working-directory: ./backend
-        run: echo "Nos movemos al backend"
-
-      - name: Instalar dependencias
-        working-directory: ./backend
-        run: npm install
-
-      - name: Ejecutar tests
-        working-directory: ./backend
-        run: npm test 
+    - uses: actions/checkout@v4
+    - name: Build backend image
+      run: docker build -t mi-backend-app ./backend 
